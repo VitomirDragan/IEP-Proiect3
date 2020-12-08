@@ -1,16 +1,20 @@
+#include <iostream>
+#include <mutex>
+
 class MyArray {
 private:
-    std::mutex* myMutex;
+    std::mutex* myMutex; // fiecare clasa MyArray detine un mutex pe care poate da lock
     const static int maxSize = 10;
 
-    class Message {
+    class Message { // definim clasa message
     private:
-        std::string destination;
+        std::string destination; 
         std::string message;
 
     public:
         Message(const std::string &destination, const std::string &message) : destination(destination),
                                                                               message(message) {}
+// constructor al clasei Message, utilizam lista de initializare pentru a initializa atributele clasei
 
         const std::string &getDestination() const {
             return destination;
@@ -28,7 +32,7 @@ public:
         }
     }
 
-    void printMessage(int index) {
+    void printMessage(int index) { // afisare mesaj
         if (index < 0 || maxSize <= index) {
             return;
         }
