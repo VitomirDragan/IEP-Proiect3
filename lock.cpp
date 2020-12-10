@@ -1,12 +1,17 @@
 #include <iostream>
 #include <mutex>
+#include "Uncopyable.h"
 
-class Lock { // clasa definita pentru a gestiona blocare si deblocarea unui mutex
+class Lock : private Uncopyable// clasa definita pentru a gestiona blocare si deblocarea unui mutex
+{
 public:
-    explicit Lock(std::mutex *pm) : mutexPtr(pm) {
-        try {
+    explicit Lock(std::mutex *pm) : mutexPtr(pm) 
+    {
+        try 
+        {
             mutexPtr->lock(); // mutexul primit ca si parametru se blocheaza in constructorul clasei
-        }catch (std::exception& e){
+        }catch (std::exception& e)
+        {
             std::cout << e.what() << "\n";
         }
     }
